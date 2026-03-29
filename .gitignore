@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated database (reproducible by running notebooks/01_cleaning.ipynb)
+database/
