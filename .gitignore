@@ -6,5 +6,6 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 
-# Generated database (reproducible by running notebooks/01_cleaning.ipynb)
-database/
+# Accidental empty db created in data/ root
+data/*.db
+.claude/settings.local.json
