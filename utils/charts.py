@@ -323,7 +323,7 @@ def chart_eu_renewable_share_trend(df):
         xaxis_title=None,
         yaxis_title='Renewable Share (%)',
         plot_bgcolor='white',
-        yaxis=dict(gridcolor='#eeeeee'),
+        yaxis=dict(gridcolor='#eeeeee', range=[5, 22]),
         legend=dict(orientation='h', yanchor='bottom', y=1.02, xanchor='right', x=1),
     )
     return fig
