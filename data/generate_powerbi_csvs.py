@@ -127,46 +127,7 @@ germany = pd.read_sql("""
 germany.to_csv(OUT / "pbi_germany.csv", index=False)
 print(f"pbi_germany.csv      {len(germany)} rows")
 
-# ── 4. Four country archetypes (share, dependency, EU rank) ───────────────────
-archetypes = pd.read_sql("""
-    WITH country_renew AS (
-        SELECT year, country, SUM(value_gwh) AS renewable_gwh FROM renewables
-        WHERE energy_source = 'Renewables and biofuels' AND balance_type = 'Primary production'
-        GROUP BY year, country
-    ),
-    country_gae AS (
-        SELECT year, country, SUM(value_gwh) AS gae FROM energy_dependency
-        WHERE balance_type = 'Gross available energy' AND energy_source = 'Total'
-        GROUP BY year, country
-    ),
-    all_shares AS (
-        SELECT r.year, r.country,
-            ROUND(r.renewable_gwh / NULLIF(g.gae, 0) * 100, 2) AS renewable_share
-        FROM country_renew r JOIN country_gae g ON r.year = g.year AND r.country = g.country
-    ),
-    dep AS (
-        SELECT year, country,
-            ROUND(
-                (SUM(CASE WHEN balance_type = 'Imports' THEN value_gwh ELSE 0 END)
-                 - SUM(CASE WHEN balance_type = 'Exports' THEN value_gwh ELSE 0 END))
-                / NULLIF(SUM(CASE WHEN balance_type = 'Gross available energy' THEN value_gwh ELSE 0 END), 0) * 100, 2
-            ) AS dependency_rate
-        FROM energy_dependency WHERE energy_source = 'Total' GROUP BY year, country
-    ),
-    ranked AS (
-        SELECT year, country, renewable_share,
-            RANK() OVER (PARTITION BY year ORDER BY renewable_share DESC) AS eu_rank
-        FROM all_shares
-    )
-    SELECT r.year, r.country, r.renewable_share, d.dependency_rate, r.eu_rank
-    FROM ranked r JOIN dep d ON r.year = d.year AND r.country = d.country
-    WHERE r.country IN ('Germany', 'France', 'Italy', 'Denmark')
-    ORDER BY r.country, r.year
-""", conn)
-archetypes.to_csv(OUT / "pbi_archetypes.csv", index=False)
-print(f"pbi_archetypes.csv   {len(archetypes)} rows")
-
-# ── 5. Country scorecard (all 27, 2005 vs 2024 growth) ───────────────────────
+# ── 4. Country scorecard (all 27, 2005 vs 2024 growth) ───────────────────────
 scorecard = pd.read_sql("""
     WITH shares AS (
         SELECT r.year, r.country,
@@ -195,7 +156,7 @@ scorecard = pd.read_sql("""
 scorecard.to_csv(OUT / "pbi_scorecard.csv", index=False)
 print(f"pbi_scorecard.csv    {len(scorecard)} rows")
 
-# ── 6. All countries — renewable share + dependency per year ─────────────────
+# ── 5. All countries — renewable share + dependency per year ─────────────────
 country_metrics = pd.read_sql("""
     WITH renew AS (
         SELECT year, country, SUM(value_gwh) AS renewable_gwh FROM renewables
