@@ -26,7 +26,8 @@ Interactive web dashboard with time series analysis, country archetypes, and rol
 ├── notebooks/
 │   ├── 01_cleaning.ipynb             # Data cleaning
 │   ├── 02_eda.ipynb                  # Exploratory analysis
-│   └── 03_time_series.ipynb          # Time series & indexing
+│   ├── 03_time_series.ipynb          # Time series & indexing
+│   └── 04_forecasting.ipynb          # ML forecasting (train/test, baselines, evaluation)
 └── utils/                            # Shared utility functions
 ```
 
@@ -57,6 +58,12 @@ However, EU import dependency only fell from 57.5% to 56.0% (-1.5pp) over the sa
 
 **What it cannot say:** whether a different mix of investments would have reduced dependency more significantly.
 
+### Forecasting (notebook 04)
+
+The forecasting notebook extends the analysis with a first machine-learning workflow, deliberately kept simple given only 20 annual data points. It forecasts two EU metrics and contrasts the results: a time-ordered train/test split (2005–2018 train, 2019–2024 test), a naive persistence baseline, linear regression, and an overfitting demonstration, all evaluated with MAE/RMSE/MAPE.
+
+The contrast is the finding. **Renewable share** has a strong trend a linear model rides easily — it cuts test error to ~1/5 of the naive baseline (MAE 0.6 vs 3.0pp, train R²=0.97) and projects ~23% by 2030. **Dependency rate** resists prediction: the naive baseline *beats* the trend model (R²=0.28), because — exactly as the analysis concluded — dependency is driven by many forces at once with no single direction. The ML restates the project's central finding in predictive terms: one metric carries signal a simple model can ride, the other does not, and honest evaluation is what tells them apart.
+
 Additional findings:
 - **Denmark Paradox** — Denmark led EU renewable growth yet flipped from a net energy exporter (-51% dependency) to a net importer (+38%) over the period. North Sea fossil reserves depleted faster than wind could compensate — electricity and oil/gas serve different end uses. A country can lead on renewables and still become more import-dependent.
 - **Germany** — completed nuclear phaseout by 2024 but energy dependency *rose* to 110.1 (index: 2005=100) despite tripling renewables
@@ -80,13 +87,13 @@ uv run python data/generate_powerbi_csvs.py
 
 ## Data Sources
 
-- [Eurostat Energy Statistics](https://ec.europa.eu/eurostat/web/energy) — energy dependency, renewables, fossil fuels
+- [Eurostat Energy Balances (nrg_bal_c)](https://ec.europa.eu/eurostat/databrowser/product/view/nrg_bal_c) — energy dependency, imports/exports, fossil and renewable production (GWh, 2005–2024)
 - [UNHCR/HDX](https://data.humdata.org) — supplementary country data
 
 ## Tech Stack
 
 **Languages:** Python, SQL, DAX
 
-**Libraries:** Pandas, Plotly, Matplotlib, Streamlit, SQLite3
+**Libraries:** Pandas, Plotly, Matplotlib, Streamlit, scikit-learn, SQLite3
 
 **Tools:** Power BI Desktop, Jupyter, uv
