@@ -316,7 +316,7 @@ st.divider()
 # ── KPI row ───────────────────────────────────────────────────────────────────
 k1, k2, k3, k4 = st.columns(4)
 k1.metric("EU energy consumption", "−19%", "2005 → 2024", delta_color="inverse")
-k2.metric("Import dependency (2024)", "56.0%", "−1.5pp vs 2005", delta_color="inverse")
+k2.metric("Import dependency (2024)", "56.0%", "−1.4pp vs 2005", delta_color="inverse")
 k3.metric("EU renewable share (2024)", "19.8%", "+12.6pp vs 2005")
 k4.metric("Wind production growth", "7×", "2005 → 2024")
 
@@ -417,11 +417,11 @@ with tabs[4]:
 with tabs[5]:
     st.subheader("EU Green Energy Reality Check")
     st.markdown(
-        "The EU tripled its renewable share from 7.2% to 19.8% over 19 years -- "
+        "The EU nearly tripled its renewable share from 7.2% to 19.8% over 19 years -- "
         "and absolute fossil consumption fell from ~15M to ~10.4M GWh, confirming real displacement. "
         "But look at both charts below together: while renewable share climbed steadily, "
         "EU import dependency went from 57.5% in 2005 to 56.0% in 2024 -- "
-        "a reduction of just **1.5 percentage points** after nearly two decades of investment. "
+        "a reduction of just **1.4 percentage points** after nearly two decades of investment. "
         "Import dependency is shaped by far more than renewable share alone -- "
         "domestic fossil production, nuclear policy, total demand, and trade patterns all move it. "
         "Several countries that built renewables aggressively also closed nuclear plants over the same period, "

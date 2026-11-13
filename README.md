@@ -54,7 +54,7 @@ Interactive web dashboard with time series analysis, country archetypes, and rol
 
 EU renewable share nearly tripled from 7.2% to 19.8% over 19 years, and absolute fossil consumption fell from ~15M to ~10.4M GWh — confirming real displacement.
 
-However, EU import dependency only fell from 57.5% to 56.0% (-1.5pp) over the same period. Import dependency is shaped by far more than renewable share alone — domestic fossil production, nuclear policy, total demand, and trade patterns all move it. Several countries that built renewables aggressively also closed nuclear plants, pushing dependency in the opposite direction.
+However, EU import dependency only fell from 57.5% to 56.0% (-1.4pp) over the same period. Import dependency is shaped by far more than renewable share alone — domestic fossil production, nuclear policy, total demand, and trade patterns all move it. Several countries that built renewables aggressively also closed nuclear plants, pushing dependency in the opposite direction.
 
 **What the data can say:** renewables grew substantially and fossil consumption fell in real terms.
 
